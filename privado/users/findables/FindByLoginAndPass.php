@@ -7,11 +7,13 @@ class findByLoginAndPass implements IFindable
 {
     private $login;
     private $senha;
+    private $limite;
 
-    public function __construct($login, $senha)
+    public function __construct($login, $senha, $limit = 0)
     {
         $this->login = $login;
         $this->senha = $senha;
+        $this->limite = $limit;
     }
 
     public function getColumns()
@@ -26,19 +28,18 @@ class findByLoginAndPass implements IFindable
 
     public function whereClause()
     {
-        echo "<script>console.debug($this->login)</script>";
-        if (is_numeric($this->login))
+        if ((int)$this->login > 0)
             return array(
-                0 => "id = :login",
-                1 => "senha = :senha",
-                2 => "is_ativo = :is_ativo"
+                0 => "`id_user` = :login",
+                1 => "`senha` = :senha",
+                2 => "`is_ativo` = :is_ativo"
             );
 
 
         return array(
-            0 => "login = :login",
-            1 => "senha = :senha",
-            2 => "is_ativo = :is_ativo"
+            0 => "`login` = :login",
+            1 => "`senha` = :senha",
+            2 => "`is_ativo` = :is_ativo"
         );
     }
 
@@ -49,5 +50,10 @@ class findByLoginAndPass implements IFindable
             "senha" => $this->senha,
             "is_ativo" => "Y"
         );
+    }
+
+    public function getLimitRows()
+    {
+        return 1;
     }
 }

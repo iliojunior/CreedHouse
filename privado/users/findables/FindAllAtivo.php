@@ -35,6 +35,11 @@ class FindAllAtivo implements IFindable
             "is_ativo" => "A"
         );
     }
+
+    public function getLimitRows()
+    {
+        return 0;
+    }
 }
 
 ?>

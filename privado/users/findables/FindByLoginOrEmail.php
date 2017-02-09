@@ -26,7 +26,7 @@ class findByLoginOrEmail implements IFindable
     public function whereClause()
     {
         return array(
-            0 => "`login` = :login OR `email` = :email",
+            0 => "(`login` = :login OR `email` = :email)",
             1 => "`is_ativo` = :is_ativo"
         );
     }
@@ -38,5 +38,10 @@ class findByLoginOrEmail implements IFindable
             "email" => $this->search,
             "is_ativo" => "Y"
         );
+    }
+
+    public function getLimitRows()
+    {
+        return 0;
     }
 }
