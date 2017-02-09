@@ -2,7 +2,7 @@
 
 if (!isset($_SESSION['login'])) {
     ?>
-    <script>document.location = "login-material/"</script>
+    <script>document.location = "login/"</script>
     <?php
 }
 

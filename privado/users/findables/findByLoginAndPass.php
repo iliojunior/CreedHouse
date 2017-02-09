@@ -26,12 +26,14 @@ class findByLoginAndPass implements IFindable
 
     public function whereClause()
     {
+        echo "<script>console.debug($this->login)</script>";
         if (is_numeric($this->login))
             return array(
                 0 => "id = :login",
                 1 => "senha = :senha",
                 2 => "is_ativo = :is_ativo"
             );
+
 
         return array(
             0 => "login = :login",
