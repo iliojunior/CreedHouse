@@ -1,9 +1,9 @@
 <?php
 
-$caminhoInclude = "../../";
+$caminhoInclude = "../";
 include_once "seguranca.php";
 include_once $caminhoInclude . "privado/users/UsersCRUD.php";
-include_once $caminhoInclude . "privado/users/FindAllAtivo.php";
+include_once $caminhoInclude . "privado/users/findables/FindAllAtivo.php";
 
 ?>
 
