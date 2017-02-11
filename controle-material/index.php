@@ -1,12 +1,15 @@
 <?php
 
 $caminhoInclude = "../";
+<<<<<<< HEAD
 
 if (isset($_GET['pgl'])) {
     include "login/index.php";
     return;
 }
 
+=======
+>>>>>>> bcffcef4c57678219c87c849df23773303df311f
 include_once "seguranca.php";
 include_once $caminhoInclude . "privado/users/UsersCRUD.php";
 include_once $caminhoInclude . "privado/users/findables/FindAllAtivo.php";
