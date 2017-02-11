@@ -82,7 +82,7 @@ if ($_POST) {
             UserUtil::setEmail($resultadoUser['email']);
             UserUtil::setNivel($resultadoUser['nivel']);
 
-            header("location: " . $caminhoInclude . "controle-material/");
+            header("location: " . $caminhoInclude . "controle/");
         } else {
             echo "<script>document.getElementById('password').classList.add('invalid')</script>";
         }
