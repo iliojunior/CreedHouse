@@ -1,50 +1,28 @@
 <?php
-session_start();
-
-if(isset($_GET['sair'])){
-    session_start();
-    session_destroy();
-    session_unset();
-    unset($_SESSION['login']);
-    unset($_SESSION['email']);
-    unset($_SESSION['nome']);
-    unset($_SESSION['nivel']);
-}
 
 session_start();
+include_once $caminhoInclude . "privado/users/UserUtil.php";
+
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case "sair":
             session_destroy();
             session_unset();
+            unset($_SESSION['id_user']);
             unset($_SESSION['login']);
             unset($_SESSION['email']);
             unset($_SESSION['nome']);
             unset($_SESSION['nivel']);
+            echo "<script>document.location = \"?action=logar\"</script>";
             break;
         case "logar":
-            include_once "login/index.php";
-            die();
+            if(!UserUtil::isLogado())
+                $pg = "login/index.php";
+            break;
         default:
             include_once "404.php";
-            die();
+            break;
     }
-}
-
-if (!isset($_SESSION['login'])) {
-    ?>
-<<<<<<< HEAD
-    <script>document.location = "index.php?pgl"</script>
-=======
+} else if (!UserUtil::isLogado()) { ?>
     <script>document.location = "?action=logar"</script>
->>>>>>> bcffcef4c57678219c87c849df23773303df311f
-    <?php
-}
-
-
-$user = $_SESSION['login'];
-$email = $_SESSION['email'];
-$nome = $_SESSION['nome'];
-$nivel = $_SESSION['nivel'];
-
-?>
+<?php }  ?>

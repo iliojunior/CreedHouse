@@ -4,11 +4,8 @@
     <title>Acesso</title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="<?=$caminhoInclude?>controle-material/login/style.css">
-=======
     <link rel="stylesheet" href="<?= $caminhoInclude ?>controle-material/login/style.css">
->>>>>>> bcffcef4c57678219c87c849df23773303df311f
+    <link rel="stylesheet" href="<?= $caminhoInclude ?>controle-material/login/style.css">
 </head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
@@ -59,6 +56,7 @@ if ($_POST) {
     include_once $caminhoInclude . "privado/users/findables/FindByLoginAndPass.php";
     include_once $caminhoInclude . "privado/users/findables/FindByLoginOrEmail.php";
 
+    echo "<script>alert('asdasd')</script>";
     $login = $_POST['login'];
     $senha = $_POST['senha'];
 
@@ -66,33 +64,26 @@ if ($_POST) {
 
     $resultado = UsersCRUD::find($findLogin)->fetch();
     if ($resultado) {
-<<<<<<< HEAD
 
-        if (count($resultado) > 1)
+        if (count($resultado) > 1) {
             $findUsuario = new findByLoginAndPass($login, $senha);
-        else
+        }
+        else {
             $findUsuario = new findByLoginAndPass($resultado[0]['id_user'], $senha);
+        }
 
-=======
-        if (count($resultado) == 1)
-            $findUsuario = new findByLoginAndPass($resultado['id_user'], $senha);
-        else
-            $findUsuario = new findByLoginAndPass($login, $senha);
->>>>>>> bcffcef4c57678219c87c849df23773303df311f
         $resultadoUser = UsersCRUD::find($findUsuario)->fetch();
         if ($resultadoUser) {
+
             session_start();
 
-            $_SESSION['login'] = $resultadoUser['login'];
-            $_SESSION['nome'] = $resultadoUser['nome'];
-            $_SESSION['email'] = $resultadoUser['email'];
-            $_SESSION['nivel'] = $resultadoUser['nivel'];
+            UserUtil::setIdUser($resultadoUser['id_user']);
+            UserUtil::setLogin($resultadoUser['login']);
+            UserUtil::setNome($resultadoUser['nome']);
+            UserUtil::setEmail($resultadoUser['email']);
+            UserUtil::setNivel($resultadoUser['nivel']);
 
-<<<<<<< HEAD
-            header("location: ".$caminhoInclude."controle-material/");
-=======
             header("location: " . $caminhoInclude . "controle-material/");
->>>>>>> bcffcef4c57678219c87c849df23773303df311f
         } else {
             echo "<script>document.getElementById('password').classList.add('invalid')</script>";
         }
