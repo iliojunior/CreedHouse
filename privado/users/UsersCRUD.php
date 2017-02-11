@@ -57,8 +57,9 @@ class UsersCRUD
     {
         self::createTable();
         $sql = "SELECT " . $findable->getColumns() .
-            " FROM `" . $findable->getTable() . "` WHERE " . join(" AND ", $findable->whereClause());
-
+        " FROM `" . $findable->getTable() .
+        "` WHERE " . join(" AND ", $findable->whereClause()) .
+            ($findable->getLimitRows() > 0 ? " LIMIT " . $findable->getLimitRows() : "");
         try {
             $stFind = Conexao::getInstance()->prepare($sql);
             $stFind->execute($findable->whereArgs());
