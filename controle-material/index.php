@@ -53,10 +53,10 @@ include_once $caminhoInclude . "privado/users/findables/FindAllAtivo.php";
             <tbody>
             <?php
             $resultado = UsersCRUD::find(FindAllAtivo::getInstance())->fetchAll();
-            while ($usuario = $resultado) {
+            foreach ($resultado as $usuario) {
                 ?>
                 <tr>
-                    <td><?= $usuario['id'] ?></td>
+                    <td><?= $usuario['id_user'] ?></td>
                     <td><?= $usuario['nome'] ?></td>
                     <td><?= $usuario['email'] ?></td>
                     <td><?= $usuario['nivel'] ?></td>

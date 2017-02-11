@@ -32,7 +32,7 @@ class FindAllAtivo implements IFindable
     public function whereArgs()
     {
         return array(
-            "is_ativo" => "A"
+            "is_ativo" => "Y"
         );
     }
 
