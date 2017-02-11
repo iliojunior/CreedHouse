@@ -4,7 +4,7 @@
     <title>Acesso</title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="<?=$caminhoInclude?>controle-material/login/style.css">
 </head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
@@ -51,10 +51,9 @@
 </div>
 <?php
 if ($_POST) {
-    $caminhoInclude = "../../";
     include_once $caminhoInclude . "privado/users/UsersCRUD.php";
-    include_once $caminhoInclude . "privado/users/findables/findByLoginAndPass.php";
-    include_once $caminhoInclude . "privado/users/findables/findByLoginOrEmail.php";
+    include_once $caminhoInclude . "privado/users/findables/FindByLoginAndPass.php";
+    include_once $caminhoInclude . "privado/users/findables/FindByLoginOrEmail.php";
 
     $login = $_POST['login'];
     $senha = $_POST['senha'];
@@ -63,18 +62,22 @@ if ($_POST) {
 
     $resultado = UsersCRUD::find($findLogin)->fetchAll();
     if ($resultado) {
-        $findUsuario = new findByLoginAndPass($resultado['id_user'], $senha);
-        $resultadoUser = UsersCRUD::find($findUsuario)->fetchAll();
+
+        if (count($resultado) > 1)
+            $findUsuario = new findByLoginAndPass($login, $senha);
+        else
+            $findUsuario = new findByLoginAndPass($resultado[0]['id_user'], $senha);
+
+        $resultadoUser = UsersCRUD::find($findUsuario)->fetch();
         if ($resultadoUser) {
             session_start();
 
-            $user = $retornoValidade->fetch();
             $_SESSION['login'] = $resultadoUser['login'];
             $_SESSION['nome'] = $resultadoUser['nome'];
             $_SESSION['email'] = $resultadoUser['email'];
             $_SESSION['nivel'] = $resultadoUser['nivel'];
 
-            header("location: $caminhoInclude/controle/");
+            header("location: ".$caminhoInclude."controle-material/");
         } else {
             echo "<script>document.getElementById('password').classList.add('invalid')</script>";
         }
@@ -85,9 +88,4 @@ if ($_POST) {
 }
 ?>
 </body>
-<!--<script>
-    jQuery.fn.invalid = function () {
-        $(this).addClass("invalid");
-    }
-</script>-->
 </html>
