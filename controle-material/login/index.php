@@ -56,13 +56,12 @@ if ($_POST) {
     include_once $caminhoInclude . "privado/users/findables/FindByLoginAndPass.php";
     include_once $caminhoInclude . "privado/users/findables/FindByLoginOrEmail.php";
 
-    echo "<script>alert('asdasd')</script>";
     $login = $_POST['login'];
     $senha = $_POST['senha'];
 
     $findLogin = new findByLoginOrEmail($login);
 
-    $resultado = UsersCRUD::find($findLogin)->fetch();
+    $resultado = UsersCRUD::find($findLogin)->fetchAll();
     if ($resultado) {
 
         if (count($resultado) > 1) {
