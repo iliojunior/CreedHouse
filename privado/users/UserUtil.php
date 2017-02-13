@@ -5,6 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 class UserUtil
 {
+    const WORD_KEY = "junior";
     const FIELD_ID = "id_user";
     const FIELD_LOGIN = "login";
     const FIELD_NOME = "nome";
@@ -24,6 +25,10 @@ class UserUtil
             && !empty(self::getLogin())
             && !empty(self::getNome())
             && !empty(self::getEmail()));
+    }
+
+    public static function getWordKey(){
+        return self::WORD_KEY;
     }
 
     /**

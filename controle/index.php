@@ -2,6 +2,7 @@
 
 $main = (isset($_GET['main'])? $_GET['main']:"");
 
+$CAMINHO = "http://localhost/CreedHouse";
 $caminhoInclude = "../";
 $caminhoIMG = "$caminhoInclude/privado/images/";
 
@@ -9,7 +10,6 @@ include_once $caminhoInclude . "controle/seguranca.php";
 include_once $caminhoInclude . "privado/users/UsersCRUD.php";
 
 include_all_php($caminhoInclude."privado/users/findables");
-
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +48,26 @@ include_all_php($caminhoInclude."privado/users/findables");
         </li>
     </ul>
     <div class="main">
-        <?php include_once "sequencia.php"; ?>
+
+        <nav class="teal">
+            <div class="nav-wrapper">
+                <a class="brand-logo" href="<?= $CAMINHO ?>/controle">Controle</a>
+                <?php if(isset($_GET['file']) && $_GET['file'] === "usuario.php") { ?>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a href="#" id="save-user">
+                            <i class="material-icons right">done</i>
+                        </a>
+                    </li>
+                </ul>
+                <?php } ?>
+            </div>
+        </nav>
+
+        <div class="main-inner">
+            <?php include_once "sequencia.php"; ?>
+        </div>
+
     </div>
 <?php } ?>
 </body>
