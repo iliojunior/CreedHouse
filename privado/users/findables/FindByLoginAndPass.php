@@ -1,8 +1,5 @@
 <?php
 
-include_once $caminhoInclude . "privado/sequencia.php";
-include_once $caminhoInclude . "privado/geral/IFindable.php";
-
 class findByLoginAndPass implements IFindable
 {
     private $login;

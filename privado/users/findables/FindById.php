@@ -1,14 +1,13 @@
 <?php
 
-class FindAllAtivo implements IFindable
+class FindById implements IFindable
 {
-    private static $instance;
 
-    public static function getInstance(){
-        if(!isset(self::$instance)){
-            self::$instance = new FindAllAtivo();
-        }
-        return self::$instance;
+    private $id_user;
+
+    public function __construct($id_user)
+    {
+        $this->id_user = $id_user;
     }
 
     public function getColumns()
@@ -24,20 +23,20 @@ class FindAllAtivo implements IFindable
     public function whereClause()
     {
         return array(
-            0 => "`is_ativo` = :is_ativo"
+            0 => "`id_user` = :id_user"
         );
     }
 
     public function whereArgs()
     {
         return array(
-            "is_ativo" => "Y"
+            "id_user" => $this->id_user
         );
     }
 
     public function getLimitRows()
     {
-        return 0;
+        return 1;
     }
 }
 

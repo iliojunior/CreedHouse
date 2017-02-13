@@ -1,11 +1,14 @@
 <?php
 
+$main = (isset($_GET['main'])? $_GET['main']:"");
+
 $caminhoInclude = "../";
 $caminhoIMG = "$caminhoInclude/privado/images/";
 
 include_once $caminhoInclude . "controle/seguranca.php";
 include_once $caminhoInclude . "privado/users/UsersCRUD.php";
-include_once $caminhoInclude . "privado/users/findables/FindAllAtivo.php";
+
+include_all_php($caminhoInclude."privado/users/findables");
 
 ?>
 
@@ -17,6 +20,8 @@ include_once $caminhoInclude . "privado/users/findables/FindAllAtivo.php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" type="image/png" href="<?=$caminhoIMG?>/favicon-controle.ico"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
@@ -36,38 +41,14 @@ include_once $caminhoInclude . "privado/users/findables/FindAllAtivo.php";
             </div>
         </li>
         <li class="row">
-            <a href="#">Adicionar Usu&aacute;rio</a>
+            <a href="?file=usuario.php">Adicionar Usu&aacute;rio</a>
         </li>
         <li class="row">
             <a href="?action=sair">Sair</a>
         </li>
     </ul>
     <div class="main">
-        <table class="responsive-table">
-            <thead>
-            <tr>
-                <th data-field="id">Id</th>
-                <th data-field="nome">Nome</th>
-                <th data-field="email">Email</th>
-                <th data-field="nivel">N&iacute;vel</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            $resultado = UsersCRUD::find(FindAllAtivo::getInstance())->fetchAll();
-            foreach ($resultado as $usuario) {
-                ?>
-                <tr>
-                    <td><?= $usuario['id_user'] ?></td>
-                    <td><?= $usuario['nome'] ?></td>
-                    <td><?= $usuario['email'] ?></td>
-                    <td><?= $usuario['nivel'] ?></td>
-                </tr>
-                <?php
-            }
-            ?>
-            </tbody>
-        </table>
+        <?php include_once "sequencia.php"; ?>
     </div>
 <?php } ?>
 </body>

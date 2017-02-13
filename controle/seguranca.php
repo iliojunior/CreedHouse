@@ -2,6 +2,15 @@
 
 session_start();
 include_once $caminhoInclude . "privado/users/UserUtil.php";
+include_once $caminhoInclude . "privado/geral/IFindable.php";
+
+
+function include_all_php($folder)
+{
+    foreach (glob("{$folder}/*.php") as $filename) {
+        include $filename;
+    }
+}
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
@@ -16,13 +25,12 @@ if (isset($_GET['action'])) {
             echo "<script>document.location = \"?action=logar\"</script>";
             break;
         case "logar":
-            if(!UserUtil::isLogado())
+            if (!UserUtil::isLogado())
                 $pg = "login/index.php";
             break;
         default:
-            include_once "404.php";
             break;
     }
 } else if (!UserUtil::isLogado()) { ?>
     <script>document.location = "?action=logar"</script>
-<?php }  ?>
+<?php } ?>

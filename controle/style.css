@@ -71,3 +71,10 @@ div.main{
     margin-left: 300px;
     padding-left:12px;
 }
+
+@media screen and (max-width: 992px) {
+    div.main{
+        padding-left: 0px;
+        margin-left: 0px;
+    }
+}
