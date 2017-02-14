@@ -5,7 +5,7 @@ class Conexao
     private static $instance;
     private static $host = "localhost";
     private static $user = "root";
-    private static $pass = "Junior1996@sql";
+    private static $pass = "";
     private static $database = "creed_house";
 
     private function __construct()

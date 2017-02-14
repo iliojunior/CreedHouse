@@ -94,6 +94,8 @@ class UsersCRUD
         }
         return false;
     }
+
+    public static function save()
 }
 
 ?>
