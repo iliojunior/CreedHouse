@@ -95,7 +95,9 @@ class UsersCRUD
         return false;
     }
 
-    public static function save()
+    public static function save(ISaveble $saveble){
+        
+    }
 }
 
 ?>

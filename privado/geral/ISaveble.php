@@ -2,10 +2,15 @@
 
 interface ISaveble
 {
-    function getTableName();
-    function getArrayColumns();
-    function getArrayValues();
-    function getFilter();
+    function getTableName():string;
+
+    function getArrayColumns():array;
+
+    function getArrayValues():array;
+
+    function getFilter():string;
+
+    function isNewRecord():boolean;
 }
 
 ?>

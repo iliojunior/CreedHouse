@@ -89,6 +89,11 @@ class InsertNew implements ISaveble
     {
         return '';
     }
+
+    function isNewRecord()
+    {
+        return true;
+    }
 }
 
 ?>
