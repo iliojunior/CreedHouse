@@ -75,6 +75,10 @@ div.main nav, div.main div.main-inner{
     padding: 0 12px;
 }
 
+#nova-senha{
+    display: none;
+}
+
 @media screen and (max-width: 992px) {
     div.main{
         padding-left: 0px;
