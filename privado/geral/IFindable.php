@@ -2,15 +2,15 @@
 
 interface IFindable
 {
-    public function getColumns():string;
+    public function getColumns();
 
-    public function getTable():string;
+    public function getTable();
 
-    public function whereClause():array;
+    public function whereClause();
 
-    public function whereArgs():array;
+    public function whereArgs();
 
-    public function getLimitRows():int;
+    public function getLimitRows();
 }
 
 ?>
