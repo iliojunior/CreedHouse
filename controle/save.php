@@ -16,20 +16,11 @@ if($_GET['action'] === "save" && $_POST){
         if ($key != $id_user)
             throw new Exception("Key is not valid!");
 
-        if ($id_user === 0)
-            saveNew();
+
 
     }catch (Exception $e){
         include_once "500.php";
         echo "Erro: ".$e->getMessage();
-    }
-
-    function saveNew(){
-        
-    }
-
-    function saveExists(){
-
     }
 }
 ?>

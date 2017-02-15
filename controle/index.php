@@ -10,6 +10,7 @@ include_once $caminhoInclude . "controle/seguranca.php";
 include_once $caminhoInclude . "privado/users/UsersCRUD.php";
 
 include_all_php($caminhoInclude."privado/users/findables");
+include_all_php($caminhoInclude."privado/users/savebles");
 ?>
 
 <!DOCTYPE html>
