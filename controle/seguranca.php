@@ -2,14 +2,6 @@
 
 session_start();
 include_once $caminhoInclude . "privado/users/UserUtil.php";
-include_once $caminhoInclude . "privado/geral/IFindable.php";
-
-function include_all_php($folder)
-{
-    foreach (glob("{$folder}/*.php") as $filename) {
-        include $filename;
-    }
-}
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {

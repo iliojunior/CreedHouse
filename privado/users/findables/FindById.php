@@ -23,7 +23,7 @@ class FindById implements IFindable
     public function whereClause()
     {
         return array(
-            0 => "`id_user` = :id_user"
+            "`id_user` = :id_user"
         );
     }
 

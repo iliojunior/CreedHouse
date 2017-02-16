@@ -1,16 +1,18 @@
 <?php
-
-$main = (isset($_GET['main'])? $_GET['main']:"");
+$main = (isset($_GET['main']) ? $_GET['main'] : "");
 
 $CAMINHO = "http://localhost/CreedHouse";
 $caminhoInclude = "../";
 $caminhoIMG = "$caminhoInclude/privado/images/";
 
+include_once $caminhoInclude . "privado/functions.php";
+include_all_php($caminhoInclude . "privado/includes");
+include_all_php($caminhoInclude . "privado/users/findables");
+include_all_php($caminhoInclude . "privado/users/savebles");
+
 include_once $caminhoInclude . "controle/seguranca.php";
 include_once $caminhoInclude . "privado/users/UsersCRUD.php";
 
-include_all_php($caminhoInclude."privado/users/findables");
-include_all_php($caminhoInclude."privado/users/savebles");
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +22,7 @@ include_all_php($caminhoInclude."privado/users/savebles");
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" type="image/png" href="<?=$caminhoIMG?>/favicon-controle.ico"/>
+    <link rel="shortcut icon" type="image/png" href="<?= $caminhoIMG ?>/favicon-controle.ico"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
@@ -53,14 +55,14 @@ include_all_php($caminhoInclude."privado/users/savebles");
         <nav class="teal">
             <div class="nav-wrapper">
                 <a class="brand-logo" href="<?= $CAMINHO ?>/controle">Controle</a>
-                <?php if(isset($_GET['file']) && $_GET['file'] === "usuario.php") { ?>
-                <ul class="right hide-on-med-and-down">
-                    <li>
-                        <a href="#" id="save-user">
-                            <i class="material-icons right">done</i>
-                        </a>
-                    </li>
-                </ul>
+                <?php if (isset($_GET['file']) && $_GET['file'] === "usuario.php") { ?>
+                    <ul class="right hide-on-med-and-down">
+                        <li>
+                            <a href="#" id="save-user">
+                                <i class="material-icons right">done</i>
+                            </a>
+                        </li>
+                    </ul>
                 <?php } ?>
             </div>
         </nav>

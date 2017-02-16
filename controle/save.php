@@ -16,7 +16,8 @@ if($_GET['action'] === "save" && $_POST){
         if ($key != $id_user)
             throw new Exception("Key is not valid!");
 
-
+        $userToSave = new SaveUser();
+        $userToSave->setIdUser($id_user);
 
     }catch (Exception $e){
         include_once "500.php";

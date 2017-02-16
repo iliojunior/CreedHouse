@@ -55,7 +55,7 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
 
             <div class="input-field col s12 m6 l6">
                 <input id="senha" name="senha" type="password" class="validate"
-                       value=""/>
+                       value="" autocomplete="off"/>
                 <label for="login">Senha atual:</label>
             </div>
 
@@ -65,13 +65,13 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
 
             <div class="input-field col s12 m6 l6">
                 <input id="nova-senha-field" name="nova-senha" type="text" class="validate"
-                       value=""/>
+                       value="" autocomplete="off"/>
                 <label for="nova-senha-field">Nova senha:</label>
             </div>
 
             <div class="input-field col s12 m6 l6">
                 <input id="confirm-nova-senha" name="confirm-nova-senha" type="password" class="validate"
-                       value=""/>
+                       value="" autocomplete="off"/>
                 <label for="confirm-nova-senha">Repita a senha:</label>
             </div>
 
@@ -109,6 +109,17 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
 
     </form>
 </div>
+
+<div id="senha-modal" class="modal">
+    <div class="modal-content">
+        <h4>Nova Senha</h4>
+        <p>Deseja alterar a senha?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
+    </div>
+</div>
 <script>
     $(document).ready(function () {
         $('select').material_select();
@@ -116,5 +127,14 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
         $("#save-user").click(function () {
             $("#formulario-user").submit();
         });
+
+        <?php
+        if(!$novoUsuario){?>
+        $("#senha").focus(function () {
+            $("#nova-senha").show('fast');
+        }).change(function () {
+
+        });
+        <?php } ?>
     });
 </script>

@@ -1,5 +1,4 @@
 <?php
-require_once $caminhoInclude . "privado/sequencia.php";
 
 class UsersCRUD
 {
