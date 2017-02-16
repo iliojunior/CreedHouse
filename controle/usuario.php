@@ -55,7 +55,7 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
 
             <div class="input-field col s12 m6 l6">
                 <input id="senha" name="senha" type="password" class="validate"
-                       value="" autocomplete="off"/>
+                       value="" autocomplete="off" />
                 <label for="login">Senha atual:</label>
             </div>
 
@@ -65,7 +65,7 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
 
             <div class="input-field col s12 m6 l6">
                 <input id="nova-senha-field" name="nova-senha" type="text" class="validate"
-                       value="" autocomplete="off"/>
+                       value="" autocomplete="off" />
                 <label for="nova-senha-field">Nova senha:</label>
             </div>
 
@@ -116,8 +116,8 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
         <p>Deseja alterar a senha?</p>
     </div>
     <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
+        <a href="#!" data-action="confirm" class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
+        <a href="#!" data-action="cancel" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
     </div>
 </div>
 <script>
@@ -131,10 +131,28 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
         <?php
         if(!$novoUsuario){?>
         $("#senha").focus(function () {
-            $("#nova-senha").show('fast');
-        }).change(function () {
 
+            if ($("#nova-senha").is(':visible'))
+                return;
+
+            $("#senha-modal").modal("open");
+
+            $("a").click(function () {
+                if ($(this).data("action") === "confirm") {
+                    $("#nova-senha").show('fast');
+                    $("#senha").focus();
+                }
+            });
+
+        }).focusout(function () {
+            if ($(this).val() === ""
+                && $("#senha-modal").is(":visible")) {
+                $("#nova-senha").hide('fast');
+            }
         });
-        <?php } ?>
     });
+
+    $("#senha-modal").modal();
+
+    <?php } ?>
 </script>
