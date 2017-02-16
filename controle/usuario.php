@@ -32,7 +32,7 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
         <div class="row">
 
             <div class="input-field col s12 m6 l6">
-                <input id="nome" name="nome" type="text" class="validate"
+                <input id="nome" name="nome" type="text" class="validate" required
                        value="<?= $novoUsuario ? "" : $usuario['nome'] ?>"/>
                 <label for="nome">Nome Completo:</label>
             </div>
@@ -55,7 +55,7 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
 
             <div class="input-field col s12 m6 l6">
                 <input id="senha" name="senha" type="password" class="validate"
-                       value="" autocomplete="off" />
+                       value="" autocomplete="off"/>
                 <label for="login">Senha atual:</label>
             </div>
 
@@ -65,7 +65,7 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
 
             <div class="input-field col s12 m6 l6">
                 <input id="nova-senha-field" name="nova-senha" type="text" class="validate"
-                       value="" autocomplete="off" />
+                       value="" autocomplete="off"/>
                 <label for="nova-senha-field">Nova senha:</label>
             </div>
 
@@ -128,6 +128,13 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
             $("#formulario-user").submit();
         });
 
+        $("#formulario-user").validate({
+            rules: {
+                // simple rule, converted to {required:true}
+                nome: "required"
+                // compound rule
+            }
+        });
         <?php
         if(!$novoUsuario){?>
         $("#senha").focus(function () {
@@ -150,9 +157,9 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
                 $("#nova-senha").hide('fast');
             }
         });
+
+        $("#senha-modal").modal();
+
+        <?php } ?>
     });
-
-    $("#senha-modal").modal();
-
-    <?php } ?>
 </script>
