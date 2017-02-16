@@ -11,12 +11,12 @@ class SaveUser implements ISaveble
     private $sexo;
     private $is_ativo;
 
-    function getTableName(): string
+    function getTableName()
     {
         return "users";
     }
 
-    function getArrayColumns(): array
+    function getArrayColumns()
     {
         return array(
             0 => "nome",
@@ -29,7 +29,7 @@ class SaveUser implements ISaveble
         );
     }
 
-    function getArrayValues(): array
+    function getArrayValues()
     {
         $innerArray = array(
             "id_user" => $this->id_user,
@@ -48,12 +48,12 @@ class SaveUser implements ISaveble
         return $innerArray;
     }
 
-    function isNewRecord(): boolean
+    function isNewRecord()
     {
         return (empty($this->id_user) || $this->id_user === 0);
     }
 
-    function getFilter(): string
+    function getFilter()
     {
         return "(`id_user` = :id_user)";
     }
@@ -121,7 +121,4 @@ class SaveUser implements ISaveble
     {
         $this->is_ativo = $is_ativo;
     }
-
-
-
 }
