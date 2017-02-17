@@ -19,7 +19,7 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
     </div>
     <form action="?file=save.php&action=save" method="post" id="formulario-user">
 
-        <input type="checkbox" id="is_ativo-field" name="is_ativo-field" vali
+        <input type="checkbox" id="is_ativo-field" name="is_ativo-field"
                checked="<?= ((!$novoUsuario || $usuario['is_ativo'] === 'Y') ? "checked" : "unchecked") ?>"/>
         <label for="is_ativo-field">Ativo</label>
 
@@ -32,15 +32,15 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
         <div class="row">
 
             <div class="input-field col s12 m6 l6">
-                <input id="nome" name="nome" type="text" class="validate" required
+                <input id="nome" name="nome" type="text" class="validate"
                        value="<?= $novoUsuario ? "" : $usuario['nome'] ?>"/>
-                <label for="nome">Nome Completo:</label>
+                <label for="nome" data-error="Field is required">Nome Completo:</label>
             </div>
 
             <div class="input-field col s12 m6 l6">
                 <input id="email" name="email" type="email" class="validate"
                        value="<?= $novoUsuario ? "" : $usuario['email'] ?>"/>
-                <label for="email">Email:</label>
+                <label for="email" data-error="Field is required">Email:</label>
             </div>
 
         </div>
@@ -50,13 +50,13 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
             <div class="input-field col s12 m6 l6">
                 <input id="login" name="login" type="text" class="validate"
                        value="<?= $novoUsuario ? "" : $usuario['login'] ?>"/>
-                <label for="login">Login:</label>
+                <label for="login" data-error="Field is required">Login:</label>
             </div>
 
             <div class="input-field col s12 m6 l6">
                 <input id="senha" name="senha" type="password" class="validate"
                        value="" autocomplete="off"/>
-                <label for="login">Senha atual:</label>
+                <label for="login" data-error="Field is required">Senha atual:</label>
             </div>
 
         </div>
@@ -66,13 +66,13 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
             <div class="input-field col s12 m6 l6">
                 <input id="nova-senha-field" name="nova-senha" type="text" class="validate"
                        value="" autocomplete="off"/>
-                <label for="nova-senha-field">Nova senha:</label>
+                <label for="nova-senha-field" data-error="Field is required">Nova senha:</label>
             </div>
 
             <div class="input-field col s12 m6 l6">
                 <input id="confirm-nova-senha" name="confirm-nova-senha" type="password" class="validate"
                        value="" autocomplete="off"/>
-                <label for="confirm-nova-senha">Repita a senha:</label>
+                <label for="confirm-nova-senha" data-error="Field is required">Repita a senha:</label>
             </div>
 
         </div>
@@ -128,12 +128,8 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
             $("#formulario-user").submit();
         });
 
-        $("#formulario-user").validate({
-            rules: {
-                // simple rule, converted to {required:true}
-                nome: "required"
-                // compound rule
-            }
+        $("#formulario-user").submit(function (event) {
+            $("#formulario-user").validate(event);
         });
         <?php
         if(!$novoUsuario){?>
@@ -151,15 +147,35 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
                 }
             });
 
-        }).focusout(function () {
-            if ($(this).val() === ""
-                && $("#senha-modal").is(":visible")) {
+        });
+        $("#senha").focusout(function () {
+            if ($(this).val() === "") {
                 $("#nova-senha").hide('fast');
             }
         });
 
-        $("#senha-modal").modal();
 
+        $("#senha-modal").modal();
         <?php } ?>
+
+        jQuery.fn.validate = function (event) {
+            var elements = $(this).find("input.validate");
+            var isValid = true;
+            elements.each(function (index) {
+                    var isNovaSenha = $("#nova-senha").is(":visible");
+
+                    if ($(this).val() === "") {
+                        if (!($(this).attr("id") === "senha" && isNovaSenha)) {
+                            $(this).toggleClass("invalid");
+
+                            if (isValid)
+                                isValid = false;
+                        }
+                    }
+                }
+            );
+            if (!isValid)
+                event.preventDefault();
+        };
     });
 </script>
