@@ -12,6 +12,8 @@ $wordKey = "junior";
 for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
     $key += ord(UserUtil::WORD_KEY[$i]);
 }
+
+echo $id;
 ?>
 <div class="container">
     <div class="row">
@@ -128,11 +130,11 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
             $("#formulario-user").submit();
         });
 
+        <?php
+        if(!$novoUsuario) { ?>
         $("#formulario-user").submit(function (event) {
             $("#formulario-user").validate(event);
         });
-        <?php
-        if(!$novoUsuario){?>
         $("#senha").focus(function () {
 
             if ($("#nova-senha").is(':visible'))
@@ -156,12 +158,12 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
 
 
         $("#senha-modal").modal();
-        <?php } ?>
 
         jQuery.fn.validate = function (event) {
             var elements = $(this).find("input.validate");
             var isValid = true;
             elements.each(function (index) {
+                    debugger;
                     var isNovaSenha = $("#nova-senha").is(":visible");
 
                     if ($(this).val() === "") {
@@ -177,5 +179,6 @@ for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
             if (!isValid)
                 event.preventDefault();
         };
+        <?php } ?>
     });
 </script>

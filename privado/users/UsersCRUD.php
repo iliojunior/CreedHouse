@@ -9,27 +9,6 @@ class UsersCRUD
     {
     }
 
-    public static function createTable()
-    {
-        $sql = "CREATE TABLE IF NOT EXISTS `users`(
-                             `id_user` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                             `nome` TEXT NOT NULL,
-                             `login` TEXT NOT NULL,
-                             `senha` TEXT NOT NULL,
-                             `nivel` INT NOT NULL,
-                             `email` TEXT,
-                             `sexo` CHAR(1) NOT NULL DEFAULT 'M',
-                             `is_ativo` CHAR(1) NOT NULL DEFAULT 'Y'
-                             );";
-        try {
-            $stCreate = Conexao::getInstance()->prepare($sql);
-            $stCreate->execute();
-            return true;
-        } catch (PDOException $e) {
-            die("MySql Error(createTable): " . $e->getMessage());
-        }
-    }
-
     public static function insertUser($nome, $senha, $email, $sexo, $is_ativo)
     {
         self::createTable();
@@ -52,12 +31,33 @@ class UsersCRUD
         }
     }
 
+    public static function createTable()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS `users`(
+                             `id_user` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                             `nome` TEXT NOT NULL,
+                             `login` TEXT NOT NULL,
+                             `senha` TEXT NOT NULL,
+                             `nivel` INT NOT NULL,
+                             `email` TEXT,
+                             `sexo` CHAR(1) NOT NULL DEFAULT 'M',
+                             `is_ativo` CHAR(1) NOT NULL DEFAULT 'Y'
+                             );";
+        try {
+            $stCreate = Conexao::getInstance()->prepare($sql);
+            $stCreate->execute();
+            return true;
+        } catch (PDOException $e) {
+            die("MySql Error(createTable): " . $e->getMessage());
+        }
+    }
+
     public static function find(IFindable $findable)
     {
         self::createTable();
         $sql = "SELECT " . $findable->getColumns() .
-        " FROM `" . $findable->getTable() .
-        "` WHERE " . join(" AND ", $findable->whereClause()) .
+            " FROM `" . $findable->getTable() .
+            "` WHERE " . join(" AND ", $findable->whereClause()) .
             ($findable->getLimitRows() > 0 ? " LIMIT " . $findable->getLimitRows() : "");
         try {
             $stFind = Conexao::getInstance()->prepare($sql);
@@ -94,8 +94,16 @@ class UsersCRUD
         return false;
     }
 
-    public static function save(ISaveble $saveble){
-        
+    public static function save(ISaveble $saveble)
+    {
+        $whereArgs = join(" AND ", $saveble->getFilter());
+        if ($saveble->isNewRecord()) {
+            $sql = "INSERT INTO `" . $saveble->getTableName() .
+                "`('" . join("','", $saveble->getArrayColumns()) .
+                "') VALUES ('" . join("','", $saveble->getArrayValues()) . "')";
+
+            echo $sql;
+        }
     }
 }
 

@@ -18,15 +18,24 @@ class SaveUser implements ISaveble
 
     function getArrayColumns()
     {
-        return array(
-            0 => "nome",
-            1 => "login",
-            2 => "senha",
-            3 => "nivel",
-            4 => "email",
-            5 => "sexo",
-            6 => "is_ativo"
+        $returnArray = array(
+            "nome" => "nome",
+            "login" => "login",
+            "senha" => "senha",
+            "nivel" => "nivel",
+            "email" => "email",
+            "sexo" => "sexo",
+            "is_ativo" => "is_ativo"
         );
+        if (!$this->isAlterarSenha())
+            unset($returnArray['senha']);
+
+        return $returnArray;
+    }
+
+    public function isAlterarSenha()
+    {
+        return ($this->senha != '');
     }
 
     function getArrayValues()
@@ -44,6 +53,8 @@ class SaveUser implements ISaveble
 
         if ($this->isNewRecord())
             unset($innerArray["id_user"]);
+        if (!$this->isAlterarSenha())
+            unset($innerArray['senha']);
 
         return $innerArray;
     }
