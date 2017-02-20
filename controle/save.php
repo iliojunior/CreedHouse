@@ -23,13 +23,19 @@ if ($_GET['action'] === "save" && $_POST) {
             $user = UsersCRUD::find($findUser)->fetch(PDO::FETCH_ASSOC);
             if (count($user) <= 0)
                 throw new Exception("Pass incorrect!");
-            if($novaSenha != $confirmNovaSenha)
+            if ($novaSenha != $confirmNovaSenha)
                 throw new Exception("Passwords don't match!");
-            if($novaSenha === $senha)
+            if ($novaSenha === $senha)
                 throw new Exception("Enter a different password");
 
-            $userToSave->setSenha($novaSenha);
+            if ($userToSave->isNewRecord())
+                $userToSave->setSenha($senha);
+            else
+                $userToSave->setSenha($novaSenha);
         }
+
+        if ($userToSave->isNewRecord())
+            $userToSave->setLogin($_POST['login']);
 
         UsersCRUD::save($userToSave);
     } catch (Exception $e) {

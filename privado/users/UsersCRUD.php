@@ -99,8 +99,8 @@ class UsersCRUD
         $whereArgs = join(" AND ", $saveble->getFilter());
         if ($saveble->isNewRecord()) {
             $sql = "INSERT INTO `" . $saveble->getTableName() .
-                "`('" . join("','", $saveble->getArrayColumns()) .
-                "') VALUES ('" . join("','", $saveble->getArrayValues()) . "')";
+                "`(`" . join("`,`", $saveble->getArrayColumns()) .
+                "`) VALUES ('" . join("','", $saveble->getArrayValues()) . "')";
 
             echo $sql;
         }
