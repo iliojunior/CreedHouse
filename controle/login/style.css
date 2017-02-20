@@ -1,0 +1,11 @@
+html, body, body > .container{
+    height: 100%;
+}
+
+.centered-div{
+    margin: auto;
+}
+
+.card-login{
+    width:50%;
+}
