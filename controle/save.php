@@ -43,6 +43,10 @@ if ($_GET['action'] === "save" && $_POST) {
                 window.location="<?= $CAMINHO ?>/controle?callback=Usuário salvo com sucesso";
             </script>
         <?php }
+        if ($userToSave->isNewRecord())
+            $userToSave->setLogin($_POST['login']);
+
+        UsersCRUD::save($userToSave);
     } catch (Exception $e) {
         include_once "500.php";
         echo "Erro: " . $e->getMessage();

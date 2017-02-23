@@ -27,6 +27,8 @@ class SaveUser implements ISaveble
             "sexo" => "sexo",
             "is_ativo" => "is_ativo"
         );
+        if (!$this->isNewRecord())
+            unset($returnArray['login']);
         if (!$this->isAlterarSenha())
             unset($returnArray['senha']);
 
@@ -55,6 +57,8 @@ class SaveUser implements ISaveble
             "is_ativo" => $isVazio
         );
 
+        if (!$this->isNewRecord())
+            unset($innerArray['login']);
         if ($this->isNewRecord())
             unset($innerArray["id_user"]);
         if (!$this->isAlterarSenha())

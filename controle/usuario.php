@@ -12,8 +12,6 @@ $wordKey = "junior";
 for ($i = 0; $i < strlen(UserUtil::WORD_KEY); $i++) {
     $key += ord(UserUtil::WORD_KEY[$i]);
 }
-
-echo $id;
 ?>
 <div class="container">
     <div class="row">
