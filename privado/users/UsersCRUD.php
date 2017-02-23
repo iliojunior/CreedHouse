@@ -94,16 +94,33 @@ class UsersCRUD
         return false;
     }
 
+    private static function saveNew(ISaveble $saveble)
+    {
+        $tableName = $saveble->getTableName();
+        $columns = join("`,`", $saveble->getArrayColumns());
+        $values = join("','", $saveble->getArrayValues());
+
+        $sql = "INSERT 
+                  INTO `$tableName` 
+                       (`$columns`) 
+                VALUES ('$values')";
+
+        try {
+            $stQuery = Conexao::getInstance()->prepare($sql);
+            $result = $stQuery->execute();
+
+            return $result;
+        } catch (PDOException $e) {
+            die("MySql Error(saveNew): " . $e->getMessage());
+        }
+    }
+
     public static function save(ISaveble $saveble)
     {
-        $whereArgs = join(" AND ", $saveble->getFilter());
         if ($saveble->isNewRecord()) {
-            $sql = "INSERT INTO `" . $saveble->getTableName() .
-                "`('" . join("','", $saveble->getArrayColumns()) .
-                "') VALUES ('" . join("','", $saveble->getArrayValues()) . "')";
-
-            echo $sql;
+            return self::saveNew($saveble);
         }
+        throw new RuntimeException("NOT IMPLEMENTED UPDATE USER");
     }
 }
 

@@ -76,3 +76,9 @@ include_once $caminhoInclude . "privado/users/UsersCRUD.php";
 <?php } ?>
 </body>
 </html>
+<script>
+    <?php
+    if(isset($_GET['callback'])) {?>
+    Materialize.toast('<?= html_entity_decode($_GET["callback"]) ?>', 5000);
+    <?php }?>
+</script>

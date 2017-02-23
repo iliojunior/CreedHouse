@@ -23,15 +23,26 @@ if ($_GET['action'] === "save" && $_POST) {
             $user = UsersCRUD::find($findUser)->fetch(PDO::FETCH_ASSOC);
             if (count($user) <= 0)
                 throw new Exception("Pass incorrect!");
-            if($novaSenha != $confirmNovaSenha)
+            if ($novaSenha != $confirmNovaSenha)
                 throw new Exception("Passwords don't match!");
-            if($novaSenha === $senha)
+            if ($novaSenha === $senha)
                 throw new Exception("Enter a different password");
-
-            $userToSave->setSenha($novaSenha);
+            if ($userToSave->isNewRecord())
+                $userToSave->setSenha($senha);
+            else
+                $userToSave->setSenha($novaSenha);
         }
 
-        UsersCRUD::save($userToSave);
+        $userToSave->setLogin($_POST['login']);
+
+        $usuarioSalvo = UsersCRUD::save($userToSave);
+
+        if ($usuarioSalvo) {
+            ?>
+            <script>
+                window.location="<?= $CAMINHO ?>/controle?callback=Usuário salvo com sucesso";
+            </script>
+        <?php }
     } catch (Exception $e) {
         include_once "500.php";
         echo "Erro: " . $e->getMessage();

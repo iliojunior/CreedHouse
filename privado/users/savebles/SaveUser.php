@@ -40,6 +40,10 @@ class SaveUser implements ISaveble
 
     function getArrayValues()
     {
+        $isVazio = "Y";
+        if ($this->is_ativo !== "on")
+            $isVazio = "N";
+
         $innerArray = array(
             "id_user" => $this->id_user,
             "nome" => $this->nome,
@@ -48,7 +52,7 @@ class SaveUser implements ISaveble
             "nivel" => $this->nivel,
             "email" => $this->email,
             "sexo" => $this->sexo,
-            "is_ativo" => (empty($this->is_ativo) ? "Y" : $this->is_ativo)
+            "is_ativo" => $isVazio
         );
 
         if ($this->isNewRecord())
@@ -66,7 +70,7 @@ class SaveUser implements ISaveble
 
     function getFilter()
     {
-        return "(`id_user` = :id_user)";
+        return array("(`id_user` = :id_user)");
     }
 
     /**
